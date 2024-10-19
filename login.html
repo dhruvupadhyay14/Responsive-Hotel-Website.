@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Hotel Website</title>
+
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <!-- Bootstrap 5 CDN Links -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+    <!-- Custom File's Link -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive-style.css">
+
+</head>
+
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="100">
+    <!-- Navbar section -->
+    <header class="header_wrapper">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <img decoding="async" src="images/logo.png" class="img-fluid" alt="logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-stream navbar-toggler-icon"></i>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav menu-navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="rooms.html">Rooms</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="services.html">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="team.html">Team</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="gallery.html">Gallery</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="price.html">Price</a>
+                        </li>
+                        <li class="nav-item mt-3 mt-lg-0">
+                            <a class="main-btn" href="login.html">Login</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- Navbar section exit -->
+
+    <br><br>
+    <div class="cont">
+        <div class="form sign-in">
+            <h2>Welcome</h2>
+            <label>
+                <span>Email</span>
+                <input type="email" />
+            </label>
+            <label>
+                <span>Password</span>
+                <input type="password" />
+            </label>
+            <p class="forgot-pass">Forgot password?</p>
+            <button type="button" class="submit">Sign In</button>
+        </div>
+        <div class="sub-cont">
+            <div class="img">
+                <div class="img__text m--up">
+                    <h3>Don't have an account? Please Sign up!<h3>
+                </div>
+                <div class="img__text m--in">
+                    <h3>If you already have an account, just sign in.<h3>
+                </div>
+                <div class="img__btn">
+                    <span class="m--up">Sign Up</span>
+                    <span class="m--in">Sign In</span>
+                </div>
+            </div>
+            <div class="form sign-up">
+                <h2>Create your Account</h2>
+                <label>
+                    <span>Name</span>
+                    <input type="text" />
+                </label>
+                <label>
+                    <span>Email</span>
+                    <input type="email" />
+                </label>
+                <label>
+                    <span>Password</span>
+                    <input type="password" />
+                </label>
+                <label>
+                    <span>Confirm Password</span>
+                    <input type="password" />
+                </label>
+                <button type="button" class="submit">Sign Up</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const loginForm = document.querySelector('.sign-in');
+            const signupForm = document.querySelector('.sign-up');
+
+            // Regular Expressions for validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const passwordRegex = /^(?=.[A-Z])(?=.[a-z])(?=.*\d)[A-Za-z\d]{6,}$/; // Minimum six characters, at least one letter and one number
+
+            // Login form validation
+            loginForm.querySelector('.submit').addEventListener('click', function (e) {
+                e.preventDefault();
+                let isValid = true;
+
+                const email = loginForm.querySelector('input[type="email"]');
+                const password = loginForm.querySelector('input[type="password"]');
+                const emailError = loginForm.querySelector('.email-error');
+                const passwordError = loginForm.querySelector('.password-error');
+
+                // Clear previous errors
+                if (emailError) emailError.remove();
+                if (passwordError) passwordError.remove();
+
+                // Validate email
+                if (!email.value || !emailRegex.test(email.value)) {
+                    const emailErrorMsg = document.createElement('p');
+                    emailErrorMsg.textContent = 'Invalid or missing email.';
+                    emailErrorMsg.className = 'email-error text-danger';
+                    email.parentNode.appendChild(emailErrorMsg);
+                    isValid = false;
+                }
+
+                // Validate password
+                if (!password.value || !passwordRegex.test(password.value)) {
+                    const passwordErrorMsg = document.createElement('p');
+                    passwordErrorMsg.textContent = 'Password must be at least 6 characters long and contain at least one letter and one number.';
+                    passwordErrorMsg.className = 'password-error text-danger';
+                    password.parentNode.appendChild(passwordErrorMsg);
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    // Submit the form if valid
+                    loginForm.submit();
+                }
+            });
+
+            // Signup form validation
+            signupForm.querySelector('.submit').addEventListener('click', function (e) {
+                e.preventDefault();
+                let isValid = true;
+
+                const name = signupForm.querySelector('input[type="text"]');
+                const signupEmail = signupForm.querySelector('input[type="email"]');
+                const signupPassword = signupForm.querySelector('input[type="password"]:nth-of-type(1)');
+                const signupPasswordConfirm = signupForm.querySelector('input[type="password"]:nth-of-type(2)');
+
+                const nameError = signupForm.querySelector('.name-error');
+                const signupEmailError = signupForm.querySelector('.signup-email-error');
+                const signupPasswordError = signupForm.querySelector('.signup-password-error');
+
+                // Clear previous errors
+                if (nameError) nameError.remove();
+                if (signupEmailError) signupEmailError.remove();
+                if (signupPasswordError) signupPasswordError.remove();
+
+                // Validate name
+                if (!name.value) {
+                    const nameErrorMsg = document.createElement('p');
+                    nameErrorMsg.textContent = 'Name is required.';
+                    nameErrorMsg.className = 'name-error text-danger';
+                    name.parentNode.appendChild(nameErrorMsg);
+                    isValid = false;
+                }
+
+                // Validate email
+                if (!signupEmail.value || !emailRegex.test(signupEmail.value)) {
+                    const signupEmailErrorMsg = document.createElement('p');
+                    signupEmailErrorMsg.textContent = 'Invalid or missing email.';
+                    signupEmailErrorMsg.className = 'signup-email-error text-danger';
+                    signupEmail.parentNode.appendChild(signupEmailErrorMsg);
+                    isValid = false;
+                }
+
+                // Validate password
+                if (!signupPassword.value || !passwordRegex.test(signupPassword.value)) {
+                    const signupPasswordErrorMsg = document.createElement('p');
+                    signupPasswordErrorMsg.textContent = 'Password must be at least 6 characters long and contain at least one letter and one number.';
+                    signupPasswordErrorMsg.className = 'signup-password-error text-danger';
+                    signupPassword.parentNode.appendChild(signupPasswordErrorMsg);
+                    isValid = false;
+                }
+
+                // Confirm password validation
+                if (signupPassword.value !== signupPasswordConfirm.value) {
+                    const signupPasswordConfirmErrorMsg = document.createElement('p');
+                    signupPasswordConfirmErrorMsg.textContent = 'Passwords do not match.';
+                    signupPasswordConfirmErrorMsg.className = 'signup-password-error text-danger';
+                    signupPasswordConfirm.parentNode.appendChild(signupPasswordConfirmErrorMsg);
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    signupForm.submit();
+                }
+            });
+        });
+    </script>
+
+    <!-- Bootstrap 5 JS CDN Links -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom Js Link -->
+    <script src="js/script.js"></script>
+</body>
+
+</html>
